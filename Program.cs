@@ -4,18 +4,19 @@ class Program
 {
     static void Main()
     {
-        Console.WriteLine("Cadastro de Clientes");
+        Console.WriteLine("Client Registration");
 
-        Console.Write("Nome: ");
+        Console.Write("Name: ");
         string name = Console.ReadLine();
 
         string dateCreated = DateTime.Now.ToString("yyyy-MM-dd");
 
-        var clienteService = new ClienteService();
-        clienteService.InserirCliente(name, dateCreated);
+        var clientService = new ClientService();
+        clientService.InsertClient(name, dateCreated);
 
-        // Exibir os dados cadastrados
-        Console.WriteLine("\nCliente cadastrado:");
-        Console.WriteLine($"Nome: {name}");
-        Console.WriteLine($"Data de Cadastro: {dateCreated}");    }
+        // Display the registered data
+        Console.WriteLine("\nClient registered:");
+        Console.WriteLine($"Name: {name}");
+        Console.WriteLine($"Registration Date: {dateCreated}");
+    }
 }

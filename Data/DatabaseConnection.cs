@@ -3,16 +3,16 @@ using System;
 
 public class DatabaseConnection
 {
-    // String de conexão com o banco de dados
+    // Connection string to the database
     private readonly string _connectionString = "Server=localhost;Database=crud;User ID=root;Password=;";
 
-    // Método que cria e retorna a conexão com o banco
+    // Method that creates and returns the connection to the database
     public MySqlConnection GetConnection()
     {
         return new MySqlConnection(_connectionString);
     }
 
-    // Método para abrir a conexão
+    // Method to open the connection
     public MySqlConnection OpenConnection()
     {
         var connection = GetConnection();
