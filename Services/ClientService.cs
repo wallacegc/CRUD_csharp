@@ -17,12 +17,10 @@ public class ClientService
         {
             try
             {
-                // SQL command to insert the data
-                string query = "INSERT INTO users (name, created) VALUES (@name, @dateCreated)";
+                string query = "INSERT INTO clients (name, created) VALUES (@name, @dateCreated)";
 
                 using (var cmd = new MySqlCommand(query, connection))
                 {
-                    // Define parameters
                     cmd.Parameters.AddWithValue("@name", name);
                     cmd.Parameters.AddWithValue("@dateCreated", dateCreated);
 
@@ -44,5 +42,41 @@ public class ClientService
                 Console.WriteLine($"Error: {ex.Message}");
             }
         }
+    }
+
+    // Method to get all clients from the database
+    public List<Client> GetAllClients()
+    {
+        var clients = new List<Client>();
+
+        using (var connection = _databaseConnection.OpenConnection())
+        {
+            try
+            {
+                string query = "SELECT id, name, created FROM clients";
+                using (var cmd = new MySqlCommand(query, connection))
+                {
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            var client = new Client
+                            {
+                                Id = reader.GetInt32("id"),
+                                Name = reader.GetString("name"),
+                                DateCreated = reader.GetDateTime("created")
+                            };
+                            clients.Add(client);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
+        }
+
+        return clients;
     }
 }
